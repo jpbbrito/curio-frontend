@@ -1,0 +1,7 @@
+{
+  "name": "curio-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
