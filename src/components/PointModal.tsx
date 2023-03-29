@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonText, IonTitle, IonToolbar } from '@ionic/react'
+import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react'
 
 import './PointModal.css';
 

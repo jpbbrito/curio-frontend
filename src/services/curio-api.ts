@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { Problem } from '../interfaces/Problems';
-import { Image } from '../interfaces/Images';
 
 export async function getAllProblems(page: number, limit: number): Promise<any>{
        try {
