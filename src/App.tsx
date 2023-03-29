@@ -24,6 +24,8 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+export const REACT_APP_MAPS_KEY = process.env.REACT_APP_MAPS_KEY
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>

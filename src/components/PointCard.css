@@ -1,0 +1,15 @@
+ion-card {
+    display: flex;
+    flex-direction: column;
+    height: 200vh/2;
+    width: 200vw/2;
+}
+
+
+
+.buttons-space {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 10px 10px 10px;
+}
