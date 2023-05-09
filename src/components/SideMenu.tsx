@@ -11,6 +11,7 @@ function SideMenu() {
         </IonHeader>
         <IonContent className="ion-padding">
           <IonMenuToggle>
+            <IonButton shape='round' expand='full'>Login</IonButton>
             <IonButton shape='round' expand='full' fill='outline'>Problemas</IonButton>
             <IonButton shape='round' expand='full' fill='outline'>Soluções</IonButton>
           </IonMenuToggle>

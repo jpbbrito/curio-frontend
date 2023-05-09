@@ -1,7 +1,5 @@
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
-
-import { useEffect, useState } from 'react';
-import { } from '@ionic/react';
+import { useState } from 'react';
 
 import PointCard from './PointCard';
 import PointModal from './PointModal';
@@ -14,12 +12,17 @@ import { Image } from '../interfaces/Images';
 
 import { REACT_APP_MAPS_KEY } from '../App';
 
-
-function MapContent() {
+interface IProps {
+    problems: Problem[],
+    currentPosition: {
+        lat: any,
+        lng: any
+    }
+}
+function MapContent({ problems, currentPosition } : IProps) {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const [googleMap, setGoogleMap] = useState<google.maps.Map>()
-    const [problems, setProblems] = useState<Problem[]>([])
     const [image, setImage] = useState<Image>()
     const [allImage, setAllImage] = useState<Image[]>()
     const [selectedMarker, setSelectedMarker] = useState<Problem>()
@@ -58,22 +61,30 @@ function MapContent() {
         setIsOpenModal(false)
     }
 
-    useEffect(() => {
+    function loadMarker(problems: any) {
+        return (
+            problems.map((point: any) => (
+                <>
+                    <Marker
+                        position={{
+                            lat: parseFloat(point.latitude),
+                            lng: parseFloat(point.longitude),
+                        }}
+                        title={point.description}
+                        onClick={(e) => {
+                            getImage(point.uuid)
+                            setSelectedMarker(point)
+                        }}
+                        options={{ map: googleMap }}
+                    > </Marker>
+                </>
 
-        console.log('[fetchData]')
+            )
+        )
+        )
+    }
+    
 
-        const fetchData = async () => {
-            const response = await getAllProblems(1, 10);
-            console.log(response)
-            if (response === 'error_api') {
-                setProblems([])
-            }
-            const problems: Problem[] = response;
-
-            setProblems(problems)
-        }
-        fetchData()
-    }, [])
     return (
         <>
             {
@@ -81,43 +92,29 @@ function MapContent() {
                     <GoogleMap
                         onLoad={mapState => { setGoogleMap(mapState); }}
                         mapContainerStyle={{ width: '100%', height: '95%' }}
-                        center={{
-                            lat: -12.133053,
-                            lng: -38.4195316
-                        }}
+                        center={currentPosition}
                         zoom={10}
                     >
                         {googleMap && (
                             problems.length > 0 &&
-                            problems.map((point) => (
-                                <><Marker
-                                    position={{
-                                        lat: parseFloat(point.latitude),
-                                        lng: parseFloat(point.longitude),
-                                    }}
-                                    title={point.description}
-                                    onClick={(e) => {
-                                        getImage(point.uuid)
-                                        setSelectedMarker(point)
-                                    }}
-                                    options={{ map: googleMap }}
-                                > </Marker></>
-
-                            )))}
+                            loadMarker(problems)
+                            )}
                         {selectedMarker && (
                             <>
-                               <InfoWindow
-                                   onCloseClick={cleanPointStates}
-                                   position={{
-                                       lat: parseFloat(selectedMarker.latitude),
-                                       lng: parseFloat(selectedMarker.longitude),
-                                   }}
-                               >
+                                <InfoWindow
+                                    onCloseClick={cleanPointStates}
+                                    position={{
+                                        lat: parseFloat(selectedMarker.latitude),
+                                        lng: parseFloat(selectedMarker.longitude),
+                                    }}
+                                    
 
-                               <PointCard point={selectedMarker} cleanPointStates={cleanPointStates} setIsOpenModal={setIsOpenModal}></PointCard>
+                                >
 
-                               </InfoWindow> 
-                               <PointModal isOpenModal={isOpenModal} point={selectedMarker} image={image} setIsOpenModal={setIsOpenModal}/>
+                                    <PointCard point={selectedMarker} cleanPointStates={cleanPointStates} setIsOpenModal={setIsOpenModal}></PointCard>
+
+                                </InfoWindow>
+                                <PointModal isOpenModal={isOpenModal} point={selectedMarker} image={image} setIsOpenModal={setIsOpenModal} />
                             </>
 
                         )}
