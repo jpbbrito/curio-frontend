@@ -4,7 +4,7 @@ import { useState } from 'react';
 import PointCard from './PointCard';
 import PointModal from './PointModal';
 
-import { getAllProblems, getAllImagesByUUID, getImageByUUID } from '../services/curio-api';
+import { getAllImagesByUUID, getImageByUUID } from '../services/curio-api';
 import './MapContent.css';
 
 import { Problem } from '../interfaces/Problems';

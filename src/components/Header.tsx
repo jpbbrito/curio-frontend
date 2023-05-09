@@ -5,7 +5,6 @@ import { getAllProblemsByLocation, getCities } from '../services/curio-api'
 import logo from '../images/curio_icon-128-128-circle.svg'
 import './Header.css'
 import { OverlayEventDetail } from '@ionic/react/dist/types/components/react-component-lib/interfaces';
-import MapContent from './MapContent'
 
 import { Problem } from '../interfaces/Problems'
 
