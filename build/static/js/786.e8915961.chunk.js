@@ -1,0 +1,1 @@
+(self.webpackChunkcurio_frontend=self.webpackChunkcurio_frontend||[]).push([[786],{7786:()=>{}}]);
