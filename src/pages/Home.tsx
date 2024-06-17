@@ -10,11 +10,13 @@ import { Problem } from '../interfaces/Problems';
 import MapContent from '../components/MapContent'
 import Header from '../components/Header'
 import SideMenu from '../components/SideMenu';
+import FormProblem from '../components/FormProblem';
 
 const Home: React.FC = () => {
   const [currentPosition, setCurrentPosition] = useState<any>()
   const [problems, setProblems] = useState<Problem[]>([])
   const [selectCity, setSelectCity] = useState<any>()
+  const [openFormProblem, setOpenFormProblem] = useState(false)
 
   async function getCurrenPosition(problems: any) {
     try {
@@ -54,21 +56,22 @@ const Home: React.FC = () => {
   }, [problems, selectCity])
 
   useEffect(() => {
-    if(selectCity) {
+    if (selectCity) {
       setCurrentPosition(selectCity.currentPosition)
       setProblems(selectCity.problems)
     }
-    
+
   }, [selectCity])
   console.log('selectCity', selectCity)
   return (
-  
+
     <>
-      <SideMenu />
+      <SideMenu setIsOpenModal={setOpenFormProblem}/>
       <IonPage id="main-content">
-        <Header callback={setSelectCity}/>
+        <Header callback={setSelectCity} />
         <IonContent>
           <MapContent problems={problems} currentPosition={currentPosition}></MapContent>
+          <FormProblem isOpenModal={openFormProblem} setIsOpenModal={setOpenFormProblem}/> 
         </IonContent>
       </IonPage>
     </>

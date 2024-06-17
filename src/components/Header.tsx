@@ -14,11 +14,11 @@ const Header = ({ callback }: any) => {
     const [cities, setCities] = useState([])
     const [problems, setProblems] = useState<Problem[]>()
 
-    function getProblemsByCity (city: string, state: string, country: string) {
+    function getProblemsByCity(city: string, state: string, country: string) {
         const fetchDatas = async () => {
-            const result: Problem[] = await getAllProblemsByLocation({city,state, country}, 1, 10)
+            const result: Problem[] = await getAllProblemsByLocation({ city, state, country }, 1, 10)
             console.log('[fetchDatas] getProblemsByCity - ', result)
-            callback({ problems: result, currentPosition: { lat: Number.parseFloat(result[0].latitude), lng: Number.parseFloat(result[0].longitude) }})
+            callback({ problems: result, currentPosition: { lat: Number.parseFloat(result[0].latitude), lng: Number.parseFloat(result[0].longitude) } })
             setProblems(result)
         }
         fetchDatas()
@@ -38,7 +38,7 @@ const Header = ({ callback }: any) => {
             const result = await getCities();
             console.log('[fetchDatas] getCities - ', result)
             setCities(result)
-            
+
         }
 
         fetchDatas()
@@ -51,7 +51,6 @@ const Header = ({ callback }: any) => {
                 <div className='logo'>
 
                     <a href="/home">
-
                         <img src={logo} alt="Projeto Curio"></img>
                     </a>
                 </div>
@@ -59,30 +58,30 @@ const Header = ({ callback }: any) => {
 
                 {
                     cities.length > 0 &&
-                        <IonActionSheet
-                            isOpen={isOpen}
-                            header="Cidades"
-                            buttons={
-                                cities.map((value: any) => {
-                                    const cityName =  `${value.city}-${value.state}` 
-                                    return {
-                                        text: cityName,
-                                        handler: () => {
-                                            setIsOpen(false)
-                                            console.log('[ActionSheet] cityName', cityName)
-                                            getProblemsByCity(value.city, value.state, value.country)
-                                        }
+                    <IonActionSheet
+                        isOpen={isOpen}
+                        header="Cidades"
+                        buttons={
+                            cities.map((value: any) => {
+                                const cityName = `${value.city}-${value.state}`
+                                return {
+                                    text: cityName,
+                                    handler: () => {
+                                        setIsOpen(false)
+                                        console.log('[ActionSheet] cityName', cityName)
+                                        getProblemsByCity(value.city, value.state, value.country)
                                     }
-                                })
-                            }
-                            onDidDismiss={({ detail }) => {
-                                setResult(detail)
-                                setIsOpen(false)
-                                console.log('[onDidDismiss] Aqui')
-                            }}
-                        >
-                            {result && <code>{JSON.stringify(result, null, 2)}</code>}
-                        </IonActionSheet>
+                                }
+                            })
+                        }
+                        onDidDismiss={({ detail }) => {
+                            setResult(detail)
+                            setIsOpen(false)
+                            console.log('[onDidDismiss] Aqui')
+                        }}
+                    >
+                        {result && <code>{JSON.stringify(result, null, 2)}</code>}
+                    </IonActionSheet>
                 }
 
             </div>

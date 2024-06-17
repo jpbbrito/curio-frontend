@@ -1,25 +1,28 @@
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonMenuToggle, IonButton, IonContent } from '@ionic/react';
+import { IonMenu, IonHeader, IonToolbar, IonTitle, IonMenuToggle, IonButton, IonContent, IonModal, IonButtons } from '@ionic/react';
 
-function SideMenu() {
+interface IProps {
+  setIsOpenModal: any
+}
 
-    return (
-        <IonMenu contentId="main-content">
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Projeto Curió</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-          <IonMenuToggle>
-            <IonButton shape='round' expand='full'>Login</IonButton>
-            <IonButton shape='round' expand='full' fill='outline'>Problemas</IonButton>
-            <IonButton shape='round' expand='full' fill='outline'>Soluções</IonButton>
-          </IonMenuToggle>
-          
-        </IonContent>
-        <IonButton shape='round' color="danger">Sair</IonButton>
-      </IonMenu>
-    )
+function SideMenu({ setIsOpenModal}: IProps) {
+  return (
+    <IonMenu contentId="main-content">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Projeto Curió</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent className="ion-padding">
+        <IonMenuToggle>
+          <IonButton shape='round' expand='full'>Login</IonButton>
+          <IonButton shape='round' expand='full' fill='outline' onClick={() => setIsOpenModal(true)}>Registrar Problema</IonButton>
+          <IonButton shape='round' expand='full' fill='outline'>Registrar Solução</IonButton>
+        </IonMenuToggle>
+    
+      </IonContent>
+      <IonButton shape='round' color="danger">Sair</IonButton>
+    </IonMenu>
+  )
 }
 
 export default SideMenu;
