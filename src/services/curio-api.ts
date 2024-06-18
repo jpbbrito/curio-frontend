@@ -5,13 +5,13 @@ interface ILocation {
     country: string
 }
 
-interface IProblem {
-    description: string,
-    address: string,
+export interface IProblem {
+    description?: string,
+    address?: string,
     reporterUsername?: string,
-    reporterName: string,
-    longiture: string,
-    latitude: string,
+    reporterName?: string,
+    longitude?: string,
+    latitude?: string,
     category?: string
 }
 
